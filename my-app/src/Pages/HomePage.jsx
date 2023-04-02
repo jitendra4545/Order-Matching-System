@@ -1,0 +1,16 @@
+import { Box } from '@chakra-ui/react'
+import React from 'react'
+import { Navbar } from '../components/Navbar'
+import { PendingOrder } from '../components/PendingOrder'
+import { CompleteOrder } from '../components/CompleteOrder'
+
+export const HomePage = () => {
+  return (
+    <Box>
+        <Navbar/>
+        
+        <PendingOrder/>
+        
+    </Box>
+  )
+}
