@@ -65,7 +65,18 @@ app.post("/buy", async (req, res) => {
     }
 })
 
-
+app.patch("/updatebuy/:id",async(req,res)=>{
+    let id=req.params.id
+  let data= req.body
+ 
+try{
+  
+let update=await BuyModel.findByIdAndUpdate({"_id":id},data)
+res.send(update)
+}catch(err){
+res.send('gagfgfghf')
+}
+})
 
 
 app.listen(process.env.port, async () => {
