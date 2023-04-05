@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import { Box, Button, Heading, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, ModalCloseButton, FormControl, FormLabel, Input, ModalFooter } from '@chakra-ui/react'
 import { useDisclosure } from '@chakra-ui/react'
@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { postBuySuccess } from '../redux/action'
 
 
-export const AddOrder = ({getBuyData}) => {
+export const AddOrder = ({getBuyData,updateBuyData,updateSellData}) => {
   const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
 const [buyQty, setbuyQty] = useState("")
@@ -23,10 +23,11 @@ const [buyPrice, setbuyPrice] = useState("")
      .then((res)=>{
       console.log(res.data)
       dispatch(postBuySuccess(res.data))
-      getBuyData()
+        getBuyData()
+   
      }).catch(err=>console.log(err))
   }
-
+ 
 
   return (
     <Box>
