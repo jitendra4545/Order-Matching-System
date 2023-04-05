@@ -15,10 +15,11 @@ export const SellOrder = ({getSellData}) => {
             sellPrice,
             isEqual:false
           }
-           axios.post(`http://localhost:4500/sell`,payload)
+           axios.post(`https://fair-erin-viper-kilt.cyclic.app/sell`,payload)
            .then((res)=>{
             console.log(res.data)
             dispatch(postSellSuccess(res.data))
+            alert('order place successfully')
 getSellData()
            }).catch(err=>console.log(err))
     }

@@ -19,10 +19,11 @@ const [buyPrice, setbuyPrice] = useState("")
       buyPrice,
       isEqual:false
     }
-     axios.post(`http://localhost:4500/buy`,payload)
+     axios.post(`https://fair-erin-viper-kilt.cyclic.app/buy`,payload)
      .then((res)=>{
       console.log(res.data)
       dispatch(postBuySuccess(res.data))
+      alert('order place successfully')
         getBuyData()
    
      }).catch(err=>console.log(err))

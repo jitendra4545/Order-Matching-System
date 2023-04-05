@@ -17,8 +17,8 @@ export const PendingOrder = () => {
 
     const fetchData = async () => {
         try {
-            let data1 = await axios.get(`http://localhost:4500/buydata`)
-            let data2 = await axios.get(`http://localhost:4500/selldata`)
+            let data1 = await axios.get(`https://fair-erin-viper-kilt.cyclic.app/buydata`)
+            let data2 = await axios.get(`https://fair-erin-viper-kilt.cyclic.app/selldata`)
 
             const buyData = data1.data
             const sellData = data2.data
@@ -52,26 +52,23 @@ export const PendingOrder = () => {
             let match = buy.find((el2) => el2.buyPrice === el.sellPrice && el2.isEqual === false)
             setcomp([...comp, match])
             if (match) {
-                { match.isEqual = true }
+                
                 id = el._id
                 console.log("match", match)
                 let qty = el.sellQty - match.buyQty
                 console.log(el.sellQty, qty, buy)
-                return { ...el, sellQty: qty }
-
-
-
+                return {...el.sellQty=qty }
             } else {
                 return el
             }
 
 
         })
-        console.log(updateBuy, id)
+        console.log(id,updateBuy)
 
         let newUpdate = updateBuy.filter((el) => el._id == id)
         console.log(newUpdate)
-        axios.patch(`http://localhost:4500/updatesell/${id}`, newUpdate[0])
+        axios.patch(`https://fair-erin-viper-kilt.cyclic.app/updatesell/${id}`, newUpdate[0])
             .then((res) => {
                 console.log(res.data)
                 dispatch(updateSellSuccess(res.data))
@@ -91,18 +88,16 @@ export const PendingOrder = () => {
                 console.log("dsadsdsads", el.buyQty, match.sellQty)
                 id = el._id
 
-                let qty = el.buyQty - match.sellQty
-                if (qty < 0) {
-                    qty = Math.abs(qty)
-                    console.log(qty)
-                    return { ...el, buyQty: qty, isEqual: false }
-                }
-                console.log("match", match, qty)
+               // let qty = el.buyQty - match.sellQty
+                // console.log(qty)
+                // if (qty < 0) {
+                //     qty = Math.abs(qty)
+                //     console.log(qty)
+                //     return { ...el.buyQty=qty, isEqual: false }
+                // }
+                // console.log("match", match, qty) 
 
-
-                return { ...el, isEqual: true }
-
-
+                return { ...el.isEqual=true }
 
             } else {
                 return el
@@ -114,7 +109,7 @@ export const PendingOrder = () => {
 
         let newUpdate = updateBuy.filter((el) => el._id == id)
         console.log(newUpdate)
-        axios.patch(`http://localhost:4500/updatebuy/${id}`, newUpdate[0])
+        axios.patch(`https://fair-erin-viper-kilt.cyclic.app/updatebuy/${id}`, newUpdate[0])
             .then((res) => {
                 console.log(res.data)
                 dispatch(updateBuySuccess(res.data))
@@ -134,7 +129,7 @@ export const PendingOrder = () => {
         updateData()
         updateSeData()
 
-    }, [buy])
+    }, [buy.length])
 
 
 
@@ -143,7 +138,7 @@ export const PendingOrder = () => {
             <Box w={'50%'} margin={'auto'} display={'flex'} justifyContent="space-evenly">
                 <AddOrder updateBuyData={updateData} getBuyData={fetchData} />
                 <SellOrder getSellData={fetchData} />
-
+{/* <Button onClick={updateSeData}>Update</Button> */}
             </Box>
 
 
